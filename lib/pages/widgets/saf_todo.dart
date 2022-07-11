@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:providertodo/models/todo_model.dart';
 import 'package:providertodo/providers/providers.dart';
 import 'package:provider/provider.dart';
+import 'package:providertodo/utils/debounce.dart';
 
 class SearchAndFilterTodo extends StatelessWidget {
-  const SearchAndFilterTodo({
+  SearchAndFilterTodo({
     Key? key,
   }) : super(key: key);
+  final debounce = Debounce(milliSeconds: 1000);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ class SearchAndFilterTodo extends StatelessWidget {
           ),
           onChanged: (String? newSearchTerm) {
             if (newSearchTerm != null) {
-              context.read<TodoSearch>().setSearchTerm(newSearchTerm);
+              debounce.run(() {
+                context.read<TodoSearch>().setSearchTerm(newSearchTerm);
+              });
             }
           },
         ),
