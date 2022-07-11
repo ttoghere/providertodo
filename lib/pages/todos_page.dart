@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:providertodo/pages/widgets/show_todos.dart';
+import 'widgets/ms_widgets.dart';
+
 class TodosPage extends StatefulWidget {
   const TodosPage({
     Key? key,
@@ -11,13 +14,23 @@ class TodosPage extends StatefulWidget {
 class _TodosPageState extends State<TodosPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Material App Bar'),
-      ),
-      body: Center(
-        child: Container(
-          child: Text('Hello World'),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            child: Column(
+              children: [
+                TodoHeader(),
+                CreateTodo(),
+                SizedBox(
+                  height: 20,
+                ),
+               SearchAndFilterTodo(),
+               ShowTodos(),
+              ],
+            ),
+          ),
         ),
       ),
     );
